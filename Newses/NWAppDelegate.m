@@ -7,6 +7,8 @@
 //
 
 #import "NWAppDelegate.h"
+#import "NWTableViewController.h"
+#import "NWNewsTableViewController.h"
 
 @implementation NWAppDelegate
 
@@ -14,6 +16,13 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    NWTableViewController *mainView = [[[NWTableViewController alloc] init] autorelease];
+    NWNewsTableViewController *newsView = [[[NWNewsTableViewController alloc] init] autorelease];
+    mainView.newsController = newsView;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainView];
+    
+    self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -19,6 +19,14 @@
 		84A2C5C2198B56AF00E25B84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A2C5AA198B56AF00E25B84 /* UIKit.framework */; };
 		84A2C5CA198B56AF00E25B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C5C8198B56AF00E25B84 /* InfoPlist.strings */; };
 		84A2C5CC198B56AF00E25B84 /* NewsesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C5CB198B56AF00E25B84 /* NewsesTests.m */; };
+		84A2C5D8198B56DB00E25B84 /* NWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C5D6198B56DB00E25B84 /* NWTableViewController.m */; };
+		84A2C5D9198B56DB00E25B84 /* NWTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C5D7198B56DB00E25B84 /* NWTableViewController.xib */; };
+		84A2C5DD198B57F900E25B84 /* NWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C5DB198B57F900E25B84 /* NWTableViewCell.m */; };
+		84A2C5DE198B57F900E25B84 /* NWTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C5DC198B57F900E25B84 /* NWTableViewCell.xib */; };
+		84A2C5E2198B5E8C00E25B84 /* NWNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C5E0198B5E8C00E25B84 /* NWNewsTableViewController.m */; };
+		84A2C5E3198B5E8C00E25B84 /* NWNewsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C5E1198B5E8C00E25B84 /* NWNewsTableViewController.xib */; };
+		84A651A1198E5F5B0026FD3A /* NWNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A6519F198E5F5B0026FD3A /* NWNewsTableViewCell.m */; };
+		84A651A2198E5F5B0026FD3A /* NWNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A651A0198E5F5B0026FD3A /* NWNewsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +56,18 @@
 		84A2C5C7198B56AF00E25B84 /* NewsesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NewsesTests-Info.plist"; sourceTree = "<group>"; };
 		84A2C5C9198B56AF00E25B84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84A2C5CB198B56AF00E25B84 /* NewsesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsesTests.m; sourceTree = "<group>"; };
+		84A2C5D5198B56DB00E25B84 /* NWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWTableViewController.h; sourceTree = "<group>"; };
+		84A2C5D6198B56DB00E25B84 /* NWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWTableViewController.m; sourceTree = "<group>"; };
+		84A2C5D7198B56DB00E25B84 /* NWTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWTableViewController.xib; sourceTree = "<group>"; };
+		84A2C5DA198B57F900E25B84 /* NWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWTableViewCell.h; sourceTree = "<group>"; };
+		84A2C5DB198B57F900E25B84 /* NWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWTableViewCell.m; sourceTree = "<group>"; };
+		84A2C5DC198B57F900E25B84 /* NWTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWTableViewCell.xib; sourceTree = "<group>"; };
+		84A2C5DF198B5E8C00E25B84 /* NWNewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWNewsTableViewController.h; sourceTree = "<group>"; };
+		84A2C5E0198B5E8C00E25B84 /* NWNewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWNewsTableViewController.m; sourceTree = "<group>"; };
+		84A2C5E1198B5E8C00E25B84 /* NWNewsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWNewsTableViewController.xib; sourceTree = "<group>"; };
+		84A6519E198E5F5B0026FD3A /* NWNewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWNewsTableViewCell.h; sourceTree = "<group>"; };
+		84A6519F198E5F5B0026FD3A /* NWNewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWNewsTableViewCell.m; sourceTree = "<group>"; };
+		84A651A0198E5F5B0026FD3A /* NWNewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWNewsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +129,18 @@
 			children = (
 				84A2C5B5198B56AF00E25B84 /* NWAppDelegate.h */,
 				84A2C5B6198B56AF00E25B84 /* NWAppDelegate.m */,
+				84A2C5DA198B57F900E25B84 /* NWTableViewCell.h */,
+				84A2C5DB198B57F900E25B84 /* NWTableViewCell.m */,
+				84A2C5DC198B57F900E25B84 /* NWTableViewCell.xib */,
+				84A2C5D5198B56DB00E25B84 /* NWTableViewController.h */,
+				84A2C5D6198B56DB00E25B84 /* NWTableViewController.m */,
+				84A2C5D7198B56DB00E25B84 /* NWTableViewController.xib */,
+				84A2C5DF198B5E8C00E25B84 /* NWNewsTableViewController.h */,
+				84A2C5E0198B5E8C00E25B84 /* NWNewsTableViewController.m */,
+				84A2C5E1198B5E8C00E25B84 /* NWNewsTableViewController.xib */,
+				84A6519E198E5F5B0026FD3A /* NWNewsTableViewCell.h */,
+				84A6519F198E5F5B0026FD3A /* NWNewsTableViewCell.m */,
+				84A651A0198E5F5B0026FD3A /* NWNewsTableViewCell.xib */,
 				84A2C5B8198B56AF00E25B84 /* Images.xcassets */,
 				84A2C5AD198B56AF00E25B84 /* Supporting Files */,
 			);
@@ -220,8 +252,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A2C5E3198B5E8C00E25B84 /* NWNewsTableViewController.xib in Resources */,
+				84A2C5DE198B57F900E25B84 /* NWTableViewCell.xib in Resources */,
+				84A2C5D9198B56DB00E25B84 /* NWTableViewController.xib in Resources */,
 				84A2C5B1198B56AF00E25B84 /* InfoPlist.strings in Resources */,
 				84A2C5B9198B56AF00E25B84 /* Images.xcassets in Resources */,
+				84A651A2198E5F5B0026FD3A /* NWNewsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A2C5DD198B57F900E25B84 /* NWTableViewCell.m in Sources */,
+				84A2C5D8198B56DB00E25B84 /* NWTableViewController.m in Sources */,
 				84A2C5B3198B56AF00E25B84 /* main.m in Sources */,
+				84A651A1198E5F5B0026FD3A /* NWNewsTableViewCell.m in Sources */,
+				84A2C5E2198B5E8C00E25B84 /* NWNewsTableViewController.m in Sources */,
 				84A2C5B7198B56AF00E25B84 /* NWAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +398,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Newses/Newses-Prefix.pch";
 				INFOPLIST_FILE = "Newses/Newses-Info.plist";
@@ -371,6 +412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Newses/Newses-Prefix.pch";
 				INFOPLIST_FILE = "Newses/Newses-Info.plist";
@@ -438,6 +480,7 @@
 				84A2C5D1198B56AF00E25B84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84A2C5D2198B56AF00E25B84 /* Build configuration list for PBXNativeTarget "NewsesTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +489,7 @@
 				84A2C5D4198B56AF00E25B84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
