@@ -9,16 +9,12 @@
 #import "NWTableViewController.h"
 #import "NWTableViewCell.h"
 
-@interface NWTableViewController ()
-
-@end
-
 @implementation NWTableViewController
 
 - (void) dealloc
 {
     [_newsController release];
-    [menuLabels release];
+    [_menuLabels release];
     [super dealloc];
 }
 
@@ -28,6 +24,11 @@
     
     self.menuLabels = [[NSArray alloc] initWithObjects:@"News", @"Groups", @"Search", nil];
     self.title = @"Menu";
+    
+    [VKSdk initializeWithDelegate:self andAppId:@"4493763"];
+    [VKSdk authorize:@[VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_FRIENDS] revokeAccess:YES];
+    [VKSdk authorize:@[VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_FRIENDS] revokeAccess:YES];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -75,6 +76,30 @@
     cell.mainCellLabel.text = [self.menuLabels objectAtIndex:[indexPath row]];
     
     return cell;
+}
+
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError
+{
+    NSLog(@"eas here6");
+}
+
+- (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken
+{
+    NSLog(@"eas here4");
+}
+
+- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError
+{
+    NSLog(@"auth error");
+}
+
+- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken
+{
+}
+
+- (void)vkSdkShouldPresentViewController:(UIViewController *)controller
+{
+    //	[self presentViewController:controller animated:YES completion:nil];
 }
 
 

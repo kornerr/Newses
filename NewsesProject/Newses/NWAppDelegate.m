@@ -9,16 +9,15 @@
 #import "NWAppDelegate.h"
 #import "NWTableViewController.h"
 #import "NWNewsTableViewController.h"
-#import "VKSdk.h"
 
 @implementation NWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [VKSdk initializeWithDelegate:self andAppId:@"4493763"];
+//    [VKSdk initializeWithDelegate:self andAppId:@"4493763"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    
+
     NWTableViewController *mainView = [[[NWTableViewController alloc] init] autorelease];
     NWNewsTableViewController *newsView = [[[NWNewsTableViewController alloc] init] autorelease];
     mainView.newsController = newsView;

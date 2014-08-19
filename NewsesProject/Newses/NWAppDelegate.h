@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VKSdk.h"
 
-@interface NWAppDelegate : UIResponder <UIApplicationDelegate, VKSdkDelegate>
+@interface NWAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NWNewsTableViewController.h"
+#import "VKSdk.h"
 
-@interface NWTableViewController : UITableViewController
-{
-    NSArray *menuLabels;
-}
+@interface NWTableViewController : UITableViewController <VKSdkDelegate>
 
 @property (nonatomic, retain) NSArray *menuLabels;
 @property (nonatomic, retain) NWNewsTableViewController *newsController;
