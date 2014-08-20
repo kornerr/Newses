@@ -7,15 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NWNewsTableViewController.h"
 
 @interface NWNewsTableViewController : UITableViewController
-
-@property (retain, nonatomic) IBOutlet UIImageView *groupAvatar;
-@property (retain, nonatomic) IBOutlet UILabel *groupTitle;
-@property (retain, nonatomic) IBOutlet UILabel *newsDate;
-@property (retain, nonatomic) IBOutlet UITextView *newsText;
-
-@property (retain, nonatomic) NSDictionary *groupsIds;
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 

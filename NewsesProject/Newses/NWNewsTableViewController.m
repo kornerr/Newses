@@ -6,16 +6,19 @@
 //  Copyright (c) 2014 VantuZ. All rights reserved.
 //
 
-#import "NWNewsTableViewController.h"
 #import "NWNewsTableViewCell.h"
 
 @interface NWNewsTableViewController ()
 
-
 @property (retain, nonatomic) NSArray *resText;
 @property (retain, nonatomic) NSArray *resDate;
-@property (retain, nonatomic) NSArray *resGroupAvatar;
-@property (retain, nonatomic) NSArray *resGroupName;
+@property (retain, nonatomic) NSArray *resSourceID;
+@property (retain, nonatomic) NSDictionary *groupsIds;
+@property (retain, nonatomic) NSArray *resGroups;
+@property (retain, nonatomic) NSDictionary *resGroupsItem;
+@property (retain, nonatomic) NSData *data;
+@property (retain, nonatomic) UIImage *image;
+
 
 @end
 
@@ -32,11 +35,12 @@
     VKRequest *request = [VKRequest requestWithMethod:@"newsfeed.get" andParameters:self.groupsIds andHttpMethod:@"GET"];
     
     [request executeWithResultBlock:^(VKResponse *response) {
-        self.resText = [[response.json valueForKey:@"items"] valueForKey:@"text"];
-        self.resDate = [[response.json valueForKey:@"items"] valueForKey:@"date"];
-        //self.groupTitle.text = [self.res objectAtIndex:0];
-        //NSLog(@"count: %d", self.resText.count);
+
+        self.resGroups = [response.json valueForKey:@"groups"];
+        self.resSourceID = [response.json valueForKeyPath:@"items.source_id"];
+        self.resText = [response.json valueForKeyPath:@"items.text"];
         
+        [self.tableView reloadData];
     } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -45,12 +49,14 @@
 
 - (void) dealloc
 {
-    [_groupAvatar release];
-    [_groupTitle release];
-    [_newsDate release];
-    [_newsText release];
     [_resText release];
+    [_resDate release];
+    [_resSourceID release];
     [_groupsIds release];
+    [_resGroups release];
+    [_resGroupsItem release];
+    [_data release];
+    [_image release];
     [super dealloc];
 }
 
@@ -64,15 +70,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    NSLog(@"count:%d", [_resText count]);
-    return [_resText count];
+    return [self.resText count];
 }
 
 
@@ -85,42 +88,59 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
     }
     
-    //self.groupTitle.text = @"News";
-    //self.groupTitle.text = groupAva;
-    self.groupAvatar.backgroundColor = [UIColor redColor];
-    self.newsDate.text = @"7 min";
-    self.newsText.text = @"news";
-    [self.newsText setEditable:NO];
-    [self.newsText setScrollEnabled:NO];
+    //for (int i=0; i<[self.resText count]; i++) {
+//        cell.groupTitle.text = @"News";
+//        cell.groupAvatar.backgroundColor = [UIColor redColor];
+//        cell.newsDate.text = @"7 min";
+//        cell.newsText.text = @"news";
     
-    // Configure the cell...
-    //[cell setupNewsTableCell];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell sizeToFit];
+        //[[self.resSourceID objectAtIndex:indexPath.row]];
     
+        for (int i=0; i<[self.resGroups count]; i++) {
+            self.resGroupsItem = [self.resGroups objectAtIndex:i];
+            if ([[NSString stringWithFormat:@"-%@", [self.resGroupsItem valueForKey:@"id"]] isEqualToString:[NSString stringWithFormat:@"%@",[self.resSourceID objectAtIndex:indexPath.row]]])
+            {
+                 self.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self.resGroupsItem valueForKey:@"photo_50"]]];
+                 self.image = [UIImage imageWithData: self.data];
+                 cell.groupTitle.text = [self.resGroupsItem valueForKey:@"name"];
+                 cell.groupAvatar.image = self.image;
+            }
+        }
+        cell.groupAvatar.backgroundColor = [UIColor redColor];
+        cell.newsDate.text = @"7 min";
+        cell.newsText.text = [self.resText objectAtIndex:indexPath.row];
+        [cell.newsText setEditable:NO];
+        [cell.newsText setScrollEnabled:NO];
+        
+        // Configure the cell...
+        //[cell setupNewsTableCell];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell sizeToFit];
+ 
+    //}
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    NWNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
-//    
-//    if (!cell) {
-//        [tableView registerNib:[UINib nibWithNibName:@"NWNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsCellId"];
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
-//    }
-//    
-//    UITextView *newsText = cell.newsText;
-//    
-//    CGRect newsTextFrame = newsText.frame;
-//    newsTextFrame.size.height = newsText.contentSize.height;
-//    newsText.frame = newsTextFrame;
-//    
-//    CGSize newsTextHeight = newsTextFrame.size;
-//    //NSLog(@"1 %d", newsTextHeight.height);
-//    return 120;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NWNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
+    
+    if (!cell) {
+        [tableView registerNib:[UINib nibWithNibName:@"NWNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsCellId"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
+    }
+    
+    UITextView *newsText = cell.newsText;
+    
+    CGRect newsTextFrame = newsText.frame;
+    newsTextFrame.size.height = newsText.contentSize.height;
+    newsText.frame = newsTextFrame;
+    
+    //CGSize newsTextHeight = newsTextFrame.size;
+    //NSLog(@"1 %d", newsTextHeight.height);
+    return 120;
+}
 
 
 /*

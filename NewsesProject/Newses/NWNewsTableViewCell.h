@@ -12,10 +12,10 @@
 
 @interface NWNewsTableViewCell : UITableViewCell
 
-//@property (retain, nonatomic) IBOutlet UIImageView *groupAvatar;
-//@property (retain, nonatomic) IBOutlet UILabel *groupTitle;
-//@property (retain, nonatomic) IBOutlet UILabel *newsDate;
-//@property (retain, nonatomic) IBOutlet UITextView *newsText;
+@property (retain, nonatomic) IBOutlet UIImageView *groupAvatar;
+@property (retain, nonatomic) IBOutlet UILabel *groupTitle;
+@property (retain, nonatomic) IBOutlet UILabel *newsDate;
+@property (retain, nonatomic) IBOutlet UITextView *newsText;
 //
 //@property (retain, nonatomic) NSDictionary *groupsIds;
 //
