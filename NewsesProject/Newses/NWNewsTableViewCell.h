@@ -16,12 +16,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *groupTitle;
 @property (retain, nonatomic) IBOutlet UILabel *newsDate;
 @property (retain, nonatomic) IBOutlet UITextView *newsText;
-//
-//@property (retain, nonatomic) NSDictionary *groupsIds;
-//
-//@property (retain, nonatomic) NSArray *res;
-
-//@property (retain, nonatomic) VKRequest *apiRequest;
 
 -(void)setupNewsTableCell;
 

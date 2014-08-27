@@ -7,57 +7,87 @@
 //
 
 #import "NWNewsTableViewCell.h"
+//#import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface NWNewsTableViewController ()
 
-@property (retain, nonatomic) NSArray *resText;
-@property (retain, nonatomic) NSArray *resDate;
-@property (retain, nonatomic) NSArray *resSourceID;
 @property (retain, nonatomic) NSDictionary *groupsIds;
 @property (retain, nonatomic) NSArray *resGroups;
+@property (retain, nonatomic) NSArray *resItems;
 @property (retain, nonatomic) NSDictionary *resGroupsItem;
+@property (retain, nonatomic) NSDictionary *resItemsItem;
 @property (retain, nonatomic) NSData *data;
 @property (retain, nonatomic) UIImage *image;
+@property (retain, nonatomic) NSMutableArray *images;
+@property (retain, nonatomic) NSMutableArray *titles;
+@property (retain, nonatomic) NSMutableArray *dates;
+@property (retain, nonatomic) NSMutableArray *texts;
 
 
 @end
 
 @implementation NWNewsTableViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = @"News";
-    
-    self.groupsIds = [[NSDictionary alloc] initWithObjectsAndKeys:@"post", @"filters", nil];
-    
-    VKRequest *request = [VKRequest requestWithMethod:@"newsfeed.get" andParameters:self.groupsIds andHttpMethod:@"GET"];
-    
-    [request executeWithResultBlock:^(VKResponse *response) {
-
-        self.resGroups = [response.json valueForKey:@"groups"];
-        self.resSourceID = [response.json valueForKeyPath:@"items.source_id"];
-        self.resText = [response.json valueForKeyPath:@"items.text"];
-        
-        [self.tableView reloadData];
-    } errorBlock:^(NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-}
-
 - (void) dealloc
 {
-    [_resText release];
-    [_resDate release];
-    [_resSourceID release];
+    [_resItemsItem release];
+    [_resItems release];
+    [_images release];
+    [_titles release];
     [_groupsIds release];
     [_resGroups release];
     [_resGroupsItem release];
     [_data release];
     [_image release];
     [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    self.title = @"News";
+    
+    self.groupsIds = [[NSDictionary alloc] initWithObjectsAndKeys:@"post", @"filters", nil];
+    self.images = [[NSMutableArray alloc] init];
+    self.titles = [[NSMutableArray alloc] init];
+    self.dates = [[NSMutableArray alloc] init];
+    self.texts = [[NSMutableArray alloc] init];
+    
+    
+    VKRequest *request = [VKRequest requestWithMethod:@"newsfeed.get" andParameters:self.groupsIds andHttpMethod:@"GET"];
+    
+    [request executeWithResultBlock:^(VKResponse *response) {
+        
+        self.resGroups = [response.json valueForKey:@"groups"];
+        self.resItems = [response.json valueForKey:@"items"];
+        
+        for (int i=0; i<[self.resItems count]; i++) {
+            self.resItemsItem = [self.resItems objectAtIndex:i];
+            for (int g=0; g<[self.resGroups count]; g++) {
+                self.resGroupsItem = [self.resGroups objectAtIndex:g];
+                if ([[NSString stringWithFormat:@"%@", [self.resItemsItem valueForKey:@"source_id"]] isEqualToString:[NSString stringWithFormat:@"-%@", [self.resGroupsItem valueForKey:@"id"]]])
+                {
+                    [self.images addObject:[self.resGroupsItem valueForKey:@"photo_50"]];
+                    [self.titles addObject:[self.resGroupsItem valueForKey:@"name"]];
+                    [self.dates addObject:[self.resItemsItem valueForKey:@"date"]];
+                    [self.texts addObject:[self.resItemsItem valueForKey:@"text"]];
+                }
+            }
+        }
+        
+        [self.tableView reloadData];
+        
+    } errorBlock:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +105,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.resText count];
+    return [self.texts count];
 }
 
 
@@ -88,58 +118,51 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
     }
     
-    //for (int i=0; i<[self.resText count]; i++) {
-//        cell.groupTitle.text = @"News";
-//        cell.groupAvatar.backgroundColor = [UIColor redColor];
-//        cell.newsDate.text = @"7 min";
-//        cell.newsText.text = @"news";
+    //AVATAR
+    self.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self.images objectAtIndex:indexPath.row]]];
+    self.image = [UIImage imageWithData: self.data];
+    cell.groupAvatar.image = self.image;
     
-        //[[self.resSourceID objectAtIndex:indexPath.row]];
+    NSURL *url = [NSURL URLWithString:[self.images objectAtIndex:indexPath.row]];
+    //NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    //UIImage *placeholderImage = [UIImage imageNamed:@"your_placeholder"];
     
-        for (int i=0; i<[self.resGroups count]; i++) {
-            self.resGroupsItem = [self.resGroups objectAtIndex:i];
-            if ([[NSString stringWithFormat:@"-%@", [self.resGroupsItem valueForKey:@"id"]] isEqualToString:[NSString stringWithFormat:@"%@",[self.resSourceID objectAtIndex:indexPath.row]]])
-            {
-                 self.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self.resGroupsItem valueForKey:@"photo_50"]]];
-                 self.image = [UIImage imageWithData: self.data];
-                 cell.groupTitle.text = [self.resGroupsItem valueForKey:@"name"];
-                 cell.groupAvatar.image = self.image;
-            }
-        }
-        cell.groupAvatar.backgroundColor = [UIColor redColor];
-        cell.newsDate.text = @"7 min";
-        cell.newsText.text = [self.resText objectAtIndex:indexPath.row];
-        [cell.newsText setEditable:NO];
-        [cell.newsText setScrollEnabled:NO];
-        
-        // Configure the cell...
-        //[cell setupNewsTableCell];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell sizeToFit];
- 
-    //}
+    //__weak UITableViewCell *weakCell = cell;
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder"];
+    [cell.groupAvatar setImageWithURL:url placeholderImage:placeholderImage];
+    
+    //TITLE
+    cell.groupTitle.text = [self.titles objectAtIndex:indexPath.row];
+
+    //DATE
+    double timestamp = [[self.dates objectAtIndex:indexPath.row] intValue];
+    NSTimeInterval ti = timestamp;
+    NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
+    [dateformatter setLocale:[NSLocale currentLocale]];
+    [dateformatter setDateFormat:@"dd LLL yyyy HH:mm"];
+    NSString *dateString=[dateformatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:ti]];
+    cell.newsDate.text = dateString;
+    
+    //TEXT
+    cell.newsText.text = [self.texts objectAtIndex:indexPath.row];
+    
+    //CELLS PROP
+    [cell.newsText setEditable:NO];
+    [cell.newsText setScrollEnabled:NO];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [cell sizeToFit];
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NWNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
-    
-    if (!cell) {
-        [tableView registerNib:[UINib nibWithNibName:@"NWNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsCellId"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"newsCellId"];
-    }
-    
-    UITextView *newsText = cell.newsText;
-    
-    CGRect newsTextFrame = newsText.frame;
-    newsTextFrame.size.height = newsText.contentSize.height;
-    newsText.frame = newsTextFrame;
-    
-    //CGSize newsTextHeight = newsTextFrame.size;
-    //NSLog(@"1 %d", newsTextHeight.height);
-    return 120;
+
+    CGSize maximumSize = CGSizeMake(280, 9999);
+    UIFont *myResTextFont = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    CGSize myStringSize = [[self.texts objectAtIndex:indexPath.row] sizeWithFont:myResTextFont constrainedToSize:maximumSize];
+
+    return 120.0f + myStringSize.height;
 }
 
 

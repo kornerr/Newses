@@ -14,5 +14,6 @@
 
 @property (nonatomic, retain) NSArray *menuLabels;
 @property (nonatomic, retain) NWNewsTableViewController *newsController;
+//@property (nonatomic, retain) NWNewsTableViewController *newsController;
 
 @end

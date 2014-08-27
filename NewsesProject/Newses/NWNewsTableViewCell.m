@@ -54,7 +54,6 @@
 }
 
 - (void)dealloc {
-    //[_apiRequest release];
     [_groupAvatar release];
     [_groupTitle release];
     [_newsDate release];
