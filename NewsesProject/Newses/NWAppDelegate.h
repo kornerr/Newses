@@ -11,5 +11,6 @@
 @interface NWAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+// REVIEW В чём разница между strong и retain?
 
 @end

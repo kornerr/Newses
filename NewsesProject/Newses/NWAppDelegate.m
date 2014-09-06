@@ -21,8 +21,12 @@
 
     NWTableViewController *mainView = [[[NWTableViewController alloc] init] autorelease];
     NWNewsTableViewController *newsView = [[[NWNewsTableViewController alloc] init] autorelease];
+    // REVIEW В чём разница между release и autorelease?
+    // REVIEW Зачем здесь autorelease?
     mainView.newsController = newsView;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainView];
+    // REVIEW В чём разница между release и autorelease?
+    // REVIEW Почему здесь нет release/autorelease?
     
     self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
@@ -33,6 +37,7 @@
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     [VKSdk processOpenURL:url fromApplication:sourceApplication];
+    // REVIEW Зачем это нужно?
     return YES;
 }
 

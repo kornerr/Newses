@@ -24,10 +24,12 @@
     
     self.menuLabels = [[NSArray alloc] initWithObjects:@"News", @"Groups", @"Search", nil];
     self.title = @"Menu";
+    // REVIEW Что это? Зачем оно тут?
     
     [VKSdk initializeWithDelegate:self andAppId:@"4493763"];
     [VKSdk authorize:@[VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_FRIENDS] revokeAccess:YES];
     [VKSdk authorize:@[VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_FRIENDS] revokeAccess:YES];
+    // REVIEW Зачем 2 вызова?
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -39,6 +41,7 @@
 - (void) viewDidUnload
 {
     self.menuLabels = nil;
+    // REVIEW Что это? Зачем оно тут?
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,10 +71,16 @@
     
     if (!cell) {
         [tableView registerNib:[UINib nibWithNibName:@"NWTableViewCell" bundle:nil] forCellReuseIdentifier:@"mainCellId"];
+        // REVIEW Зачем это делать при каждом отображении? Есть место,
+        // REVIEW где можно один раз зарегистрировать ячейку. Какое?
         cell = [tableView dequeueReusableCellWithIdentifier:@"mainCellId"];
     }
     
     cell.mainCellLabel.text = [self.menuLabels objectAtIndex:[indexPath row]];
+    // REVIEW Как можно скрыть деталь реализации (присовение текста
+    // REVIEW элементу ячейки) и инкапсулировать этот вызов так, чтобы
+    // REVIEW в будущем не пришлось его менять, если, допустим, мы будем
+    // REVIEW присваивать не свойству text, а какому-то другому?
     
     return cell;
 }
@@ -79,25 +88,30 @@
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError
 {
     NSLog(@"eas here6");
+    // REVIEW Что это? Зачем оно тут?
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken
 {
     NSLog(@"eas here4");
+    // REVIEW Что это? Зачем оно тут?
 }
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError
 {
     NSLog(@"auth error");
+    // REVIEW Необходимо использовать AlertView.
 }
 
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken
 {
+    // REVIEW Что это? Зачем оно тут?
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller
 {
     //	[self presentViewController:controller animated:YES completion:nil];
+    // REVIEW Что это? Зачем оно тут?
 }
 
 

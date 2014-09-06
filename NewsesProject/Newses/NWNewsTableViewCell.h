@@ -18,5 +18,6 @@
 @property (retain, nonatomic) IBOutlet UITextView *newsText;
 
 -(void)setupNewsTableCell;
+// REVIEW Что это? Зачем оно здесь?
 
 @end

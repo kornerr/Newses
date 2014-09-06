@@ -12,5 +12,6 @@
 @interface NWNewsTableViewController : UITableViewController
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+// REVIEW Что это? Зачем оно здесь?
 
 @end

@@ -64,6 +64,8 @@
     VKRequest *request = [VKRequest requestWithMethod:@"newsfeed.get" andParameters:self.groupsIds andHttpMethod:@"GET"];
     
     [request executeWithResultBlock:^(VKResponse *response) {
+        // REVIEW Почему в одном месте скобка { на той же строке,
+        // REVIEW а в другом - на новой? По какому принципу?
         
         self.resGroups = [response.json valueForKey:@"groups"];
         self.resItems = [response.json valueForKey:@"items"];
@@ -78,6 +80,9 @@
                     [self.titles addObject:[self.resGroupsItem valueForKey:@"name"]];
                     [self.dates addObject:[self.resItemsItem valueForKey:@"date"]];
                     [self.texts addObject:[self.resItemsItem valueForKey:@"text"]];
+                    // REVIEW Как это привести к виду, чтобы был ровно один
+                    // REVIEW массив данных, не размазанный по 100500
+                    // REVIEW массивам?
                 }
             }
         }
@@ -121,6 +126,8 @@
     //AVATAR
     self.data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self.images objectAtIndex:indexPath.row]]];
     self.image = [UIImage imageWithData: self.data];
+    // REVIEW Что мешает сразу хранить массив UIImage? Какой смысл
+    // REVIEW каждый раз при отображении преобразовывать байты в UIImage?
     cell.groupAvatar.image = self.image;
     
     NSURL *url = [NSURL URLWithString:[self.images objectAtIndex:indexPath.row]];
@@ -150,6 +157,7 @@
     [cell.newsText setEditable:NO];
     [cell.newsText setScrollEnabled:NO];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    // REVIEW Где ещё можно задать результат этих трёх вызовов?
     [cell sizeToFit];
     
     return cell;
@@ -159,10 +167,13 @@
 {
 
     CGSize maximumSize = CGSizeMake(280, 9999);
+    // REVIEW Необходимо убрать константы и брать ширину из XIB.
     UIFont *myResTextFont = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    // REVIEW Где лучше и легче это задать?
     CGSize myStringSize = [[self.texts objectAtIndex:indexPath.row] sizeWithFont:myResTextFont constrainedToSize:maximumSize];
 
     return 120.0f + myStringSize.height;
+    // REVIEW Что за 120?
 }
 
 
